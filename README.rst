@@ -51,9 +51,9 @@ To make a new app:
     mounted to project/work
 
 *  If additional arguments are needed to run the app (eg: volumes to be
-  mounted), add a script to the `run_args <./run_args>`_ folder which outputs
-  those arguments (it can also do any setup required for the use of those
-  arguments)
+   mounted), add a script to the `run_args <./run_args>`_ folder which outputs
+   those arguments (it can also do any setup required for the use of those
+   arguments)
 
 
 .. _jupyter-repo2docker: https://repo2docker.readthedocs.io/en/latest/
