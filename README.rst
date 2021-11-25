@@ -51,7 +51,7 @@ To make a new app:
     mounted to project/work
 
 *  If additional arguments are needed to run the app (eg: volumes to be
-   mounted), add a script to the `run_args <./run_args>`_ folder which outputs
+   mounted), add a script to the run_opts_ folder which outputs
    those arguments (it can also do any setup required for the use of those
    arguments)
 
@@ -61,6 +61,6 @@ To make a new app:
 .. _dockash: https://github.com/dan-elias/dockash
 .. _Jupyter: https://jupyter.org/
 .. _src: ./src
-.. _run_args: ./run_args
+.. _run_opts: ./run_opts
 .. _run: ./run
 .. _dev: ./dev
