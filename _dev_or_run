@@ -14,6 +14,7 @@ fi
 
 script_dir=`dirname $0 | xargs realpath`
 src_dir=`realpath $script_dir/src/$app_name`
+project_relpath=project
 binder_dir=$src_dir/binder
 flags_dir=$binder_dir/.flags
 build_flag_file=$flags_dir/last-successful-build
@@ -34,7 +35,8 @@ case $mode in
         update_scope_dir=$src_dir
         run_opts+=(
                   -i -t  --env LINES=`tput lines` --env COLUMNS=`tput cols`
-                  --mount type=bind,source=`pwd`,target=$HOME/work
+                  --mount type=bind,source=`pwd`,target=$HOME/$project_relpath/work
+                  --workdir $HOME/$project_relpath
                   --entrypoint ""
                  )
         cmd_overrides+=(./main "$@")
@@ -43,7 +45,7 @@ case $mode in
         update_scope_dir=$binder_dir
         run_opts+=(
                    --network=host
-                   --mount type=bind,source=$src_dir,target=$HOME
+                   --mount type=bind,source=$src_dir/$project_relpath,target=$HOME/$project_relpath
                   )
         ;;
     *)

@@ -1,3 +1,0 @@
-./main
-eit
-exit
