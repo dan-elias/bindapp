@@ -7,7 +7,7 @@ Containerized command-line apps based on jupyter-repo2docker_
 Features
 --------
 
-* No dependencies besides jupyter-repo2docker_ (which is available through dockash_), bash, Docker_
+* Framework for making apps with no dependencies besides jupyter-repo2docker_ (which is available through dockash_), bash, Docker_
 * Self-contained environment for each app
 * Code development using Jupyter_
 
