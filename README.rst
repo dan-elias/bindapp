@@ -63,4 +63,4 @@ To make a new app:
 .. _src: ./src
 .. _run_args: ./run_args
 .. _run: ./run
-.. _dev: ./blob/master/dev
+.. _dev: ./dev
