@@ -23,6 +23,7 @@ To run an existing app, first navigate to the directory to be operated on (if
 applicable) and then use the `run <./run>`_ script:
 
 .. code-block:: bash
+
     /path/to/bindapp/run <app name> [args]
 
 Modifying an existing app
