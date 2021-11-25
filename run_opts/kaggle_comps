@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -e
+
+echo "--mount type=bind,source=$HOME/.kaggle,target=$HOME/.kaggle"

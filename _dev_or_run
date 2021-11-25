@@ -1,0 +1,88 @@
+#!/bin/bash
+
+set -e
+
+mode=$1
+shift
+app_name=$1
+shift
+
+if [ "$app_name" == "" ]; then
+    echo USAGE: $mode \<app\> \[\<args\>\]
+    exit 1
+fi
+
+script_dir=`dirname $0 | xargs realpath`
+src_dir=`realpath $script_dir/src/$app_name`
+binder_dir=$src_dir/binder
+flags_dir=$binder_dir/.flags
+build_flag_file=$flags_dir/last-successful-build
+temp_flag_file=$flags_dir/last-build-attempt
+image=bindapp_${USER}_${app_name}:latest
+run_opts_script=$script_dir/run_opts/$app_name
+
+if [ -f $run_opts_script ]; then
+    run_opts=($($run_opts_script))
+else
+    run_opts=()
+fi
+
+cmd_overrides=()
+
+case $mode in
+    run)
+        update_scope_dir=$src_dir
+        run_opts+=(
+                  -i -t  --env LINES=`tput lines` --env COLUMNS=`tput cols`
+                  --mount type=bind,source=`pwd`,target=$HOME/work
+                  --entrypoint ""
+                 )
+        cmd_overrides+=(./main "$@")
+        ;;
+    dev)
+        update_scope_dir=$binder_dir
+        run_opts+=(
+                   --network=host
+                   --mount type=bind,source=$src_dir,target=$HOME
+                  )
+        ;;
+    *)
+        exit 1
+        ;;
+esac
+
+function get_newest_file {
+    root_dir=$1
+    find $root_dir -type f -print0 \
+    | xargs -0 stat --format '%Y :%y %n' \
+    | sort -nr \
+    | head -n 1 \
+    | cut -d " " -f5
+}
+
+if [ "$(get_newest_file $update_scope_dir)" != "$build_flag_file" ]; then
+    docker image rm $image 2> /dev/null || true
+fi
+
+if [[ "$(docker images -q ${image} 2> /dev/null)" == "" ]]; then
+    pushd $src_dir
+    mkdir -p $(dirname $temp_flag_file)
+    touch $temp_flag_file
+    jupyter-repo2docker  \
+        --image-name ${image} \
+        . \
+        echo
+    cp -p $temp_flag_file $build_flag_file
+    rm $temp_flag_file
+    popd
+fi
+
+docker run \
+    --rm \
+    "${run_opts[@]}" \
+    $image \
+    "${cmd_overrides[@]}"
+
+
+
+
