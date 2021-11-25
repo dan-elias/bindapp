@@ -13,14 +13,14 @@ if [ "$app_name" == "" ]; then
 fi
 
 script_dir=`dirname $0 | xargs realpath`
-src_dir=`realpath $script_dir/src/$app_name`
+src_dir=`realpath $script_dir/apps/$app_name`
 project_relpath=project
 binder_dir=$src_dir/binder
 flags_dir=$binder_dir/.flags
 build_flag_file=$flags_dir/last-successful-build
 temp_flag_file=$flags_dir/last-build-attempt
 image=bindapp_${USER}_${app_name}:latest
-run_opts_script=$script_dir/run_opts/$app_name
+run_opts_script=$src_dir/run_opts
 
 if [ -f $run_opts_script ]; then
     run_opts=($($run_opts_script))
