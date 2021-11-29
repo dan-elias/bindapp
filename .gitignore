@@ -1,6 +1,7 @@
 # local
 
 .flags/
+work/
 
 # Misc
 .bash_*
