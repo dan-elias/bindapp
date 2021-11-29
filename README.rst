@@ -78,6 +78,15 @@ To develop code within the app's environment, use:
     bindapp dev <app name>
 
 
+Deleting an app
+^^^^^^^^^^^^^^^
+
+To delete an app:
+
+* delete its definition folder located within the bindapp cloned repo at apps_/<app name>
+* delete its docker image which has a name of the form: bindapp_<user name>_<app name>
+
+
 .. _jupyter-repo2docker: https://repo2docker.readthedocs.io/en/latest/
 .. _Docker: https://docs.docker.com/
 .. _dockash: https://github.com/dan-elias/dockash
