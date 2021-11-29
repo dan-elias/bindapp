@@ -13,7 +13,14 @@ if [ "$app_name" == "" ]; then
 fi
 
 script_dir=`dirname $0 | xargs realpath`
-src_dir=`realpath $script_dir/apps/$app_name`
+apps_dir=`realpath $script_dir/../../apps`
+src_dir=$apps_dir/$app_name
+
+if [ ! -d $src_dir ]; then
+    echo App $app_name not found.  Apps:
+    ls $apps_dir
+fi 
+
 project_relpath=project
 binder_dir=$src_dir/binder
 flags_dir=$binder_dir/.flags

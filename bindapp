@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -e
+
+bindapp_folder=$HOME/prj/bindapp     # <<-------  Edit this line as necessary to spefify the root folder of the bindapp cloned repo
+
+commands_folder=$bindapp_folder/bin/commands
+valid_actions=( $(find $commands_folder -maxdepth 1 -executable -type f -exec basename {} \;) )
+
+if [[ ! " ${valid_actions[@]} " =~ " $1 " ]]; then
+    echo USAGE: $0 \<action\> [ args ]
+    echo Valid actions:  "${valid_actions[@]}"
+    exit 1
+fi
+
+$commands_folder/$@

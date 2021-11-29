@@ -1,0 +1,3 @@
+#!/bin/bash
+
+`dirname $0`/../util/_dev_or_run `basename $0` "$@"

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# The output from this script is used as options for docker run
+# ref: https://docs.docker.com/engine/reference/run/
+
+# Example:  echo "--mount type=bind,source=$HOME/.my_config_file,target=$HOME/.my_config_file"

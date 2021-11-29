@@ -1,0 +1,35 @@
+#!/bin/bash
+
+set -e
+
+app_name=$1
+
+if [ "$app_name" == "" ]; then
+    echo USAGE: $0 \<app name\>
+    exit 1
+fi
+
+script_dir=$(dirname $0 | xargs realpath)
+root_dir=$(realpath $script_dir/../../)
+app_dir=$root_dir/apps/$app_name
+template_app=$root_dir/templates/app
+
+if [ -d $app_dir ]; then
+    echo App $app_name already exists.  Aborting.
+    exit 1
+fi
+
+cp -r $template_app $app_dir
+
+cat << EOF
+New app created:  $app_name
+
+To develop:
+    * Put repo2docker environment definition files in $app_dir/binder
+    * If necessary, modify $app_dir/run_opts to output addition options for the "docker run" command
+    * Then, to develop within the app's environment, use:
+        bindapp dev $app_name
+
+To run:
+    bindapp run $app_name [ args ]
+EOF
